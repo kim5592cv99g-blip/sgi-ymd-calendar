@@ -20,7 +20,7 @@ export default function CalendarView({
 }) {
 return (
   <Calendar
-    value={selectedDate ?? new Date()}
+    value={selectedDate ?? undefined}
     onChange={(value) =>
       setSelectedDate(value as Date)
     }
