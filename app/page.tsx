@@ -8,18 +8,23 @@ import { useEffect, useState } from "react";
 export default function Home() {
   const [events, setEvents] = useState<any[]>([]);
   const [selectedDate, setSelectedDate] =
-  useState(new Date());
+  useState<Date | null>(null);
 
   useEffect(() => {
     fetch("/api/events")
       .then((res) => res.json())
       .then((data) => setEvents(data));
   }, []);
-  const filteredEvents = events.filter(
-  (event) =>
-    event.Date ===
-    selectedDate.toISOString().split("T")[0]
-);
+const filteredEvents =
+  selectedDate === null
+    ? []
+    : events.filter(
+        (event) =>
+          event.Date ===
+          selectedDate
+            .toISOString()
+            .split("T")[0]
+      );
 
   return (
     <main className="max-w-7xl mx-auto p-6">
@@ -41,7 +46,9 @@ export default function Home() {
     <h2 className="text-2xl font-bold mb-4">
       📅 選取日期活動
       <p className="text-gray-500 mb-4">
-  {selectedDate.toLocaleDateString()}
+ {selectedDate
+  ? selectedDate.toLocaleDateString()
+  : "請選擇日期"}
 </p>
     </h2>
 
