@@ -15,12 +15,12 @@ export default function CalendarView({
   setSelectedDate,
 }: {
   events: EventItem[];
-  selectedDate: Date;
-  setSelectedDate: (date: Date) => void;
+  selectedDate: Date | null;
+  setSelectedDate: (date: Date | null) => void;
 }) {
 return (
   <Calendar
-    value={selectedDate}
+    value={selectedDate ?? new Date()}
     onChange={(value) =>
       setSelectedDate(value as Date)
     }
